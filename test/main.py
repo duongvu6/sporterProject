@@ -607,13 +607,7 @@ def checkout():
 
 # Ham check_admin dung de kiem tra tai khoan admin da duoc dang nhap chua
 def check_admin():
-    if 'admin' in session:
-        # Kiem tra neu 'admin' co trong session (Tai khoan admin da duoc dang nhap)
-        # Neu co, tra ve gia tri True
-        return True
-    else:
-        # Neu khong, tra ve gia tri False
-        return False
+    return 'admin' in session
 
 
 # Ham admin_result_to_dict co chuc nang tuong tu ham user_result_to_dict

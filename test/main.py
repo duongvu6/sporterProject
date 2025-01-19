@@ -1049,23 +1049,6 @@ def admin_manage():
         return redirect(url_for('admin_login'))
 
 
-# @app.route('/admin/manage/<admin_id>', methods=['GET', 'POST'])
-# def admin_manage_account(admin_id):
-#     if check_admin():
-#         conn = sqlite3.connect(sqldbname)
-#         c = conn.cursor()
-#         if request.method == 'POST':
-#
-#
-#             return
-#         else:
-#             c.execute('SELECT email, firstName, lastName FROM admin WHERE adminId = ?', (admin_id,))
-#             result = c.fetchone()
-#             admin = {'email': result[0], 'firstName': result[1], 'lastName': result[2]}
-#             return render_template('adminManageAccount.html', admin=admin)
-#
-#     else:
-#         return redirect(url_for('admin_login'))
 
 
 if __name__ == '__main__':

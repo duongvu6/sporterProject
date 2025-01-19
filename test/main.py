@@ -42,7 +42,7 @@ def get_max_id(table_name):
             max_id = 1
         # Tra ve max_id
         return max_id
-    elif table_name == 'carts':
+    if table_name == 'carts':
         c.execute('SELECT MAX(cartId) FROM cart')
         # Tim kiem cartId lon nhat trong table cart va luu vao max_id
         max_id = c.fetchone()[0]
@@ -56,7 +56,7 @@ def get_max_id(table_name):
             max_id = 1
         # Tra ve max_id
         return max_id
-    elif table_name == 'products':
+    if table_name == 'products':
         c.execute('SELECT MAX(productId) FROM products')
         # Tim kiem productId lon nhat trong table products va luu vao max_id
         max_id = c.fetchone()[0]
@@ -70,7 +70,7 @@ def get_max_id(table_name):
             max_id = 1
         # Tra ve max_id
         return max_id
-    elif table_name == 'images':
+    if table_name == 'images':
         c.execute('SELECT MAX(imgId) FROM images')
         # Tim kiem imgId lon nhat trong table images va luu vao max_id
         max_id = c.fetchone()[0]
@@ -78,13 +78,12 @@ def get_max_id(table_name):
             # Tang gia tri cua max_id len 1
             max_id = max_id + 1
             return max_id
-        else:
-            # Max_id == False (Trong table cart chua co ban ghi nao)
-            # Gan max_id = 1
-            max_id = 1
+        # Max_id == False (Trong table cart chua co ban ghi nao)
+        # Gan max_id = 1
+        max_id = 1
         # Tra ve max_id
         return max_id
-    elif table_name == 'order':
+    if table_name == 'order':
         c.execute('SELECT MAX(orderID) FROM "order"')
         # Tim kiem orderId lon nhat trong table order va luu vao max_id
         max_id = c.fetchone()[0]
@@ -116,9 +115,8 @@ def index():
     if 'user' in session:
         # Kiem tra neu ton tai gia tri 'user' trong session (User da dang nhap)
         return render_template('index.html', user=session['user_lname'], teams=teams(), carousel=carousel())
-    else:
-        # Neu khong ton tai gia tri 'user' trong session (User chua dang nhap)
-        return render_template('index.html', teams=teams(), carousel=carousel())
+    # Neu khong ton tai gia tri 'user' trong session (User chua dang nhap)
+    return render_template('index.html', teams=teams(), carousel=carousel())
 
 
 # Ham teams dung de hien lay ra cac record tu table teams
@@ -145,9 +143,8 @@ def team():
     if 'user' in session:
         # Kiem tra neu ton tai gia tri 'user' trong session (User da dang nhap)
         return render_template('displayTeam.html', user=session['user_lname'], teams=teams(), carousel=carousel())
-    else:
-        # Neu khong ton tai gia tri 'user' trong session (User chua dang nhap)
-        return render_template('displayTeam.html', teams=teams(), carousel=carousel())
+    # Neu khong ton tai gia tri 'user' trong session (User chua dang nhap)
+    return render_template('displayTeam.html', teams=teams(), carousel=carousel())
 
 
 # Dinh tuyen ham get_team cho url '/team/ten doi bong' VD: '/team/manu'
@@ -165,9 +162,8 @@ def get_team(fteam):
         # Kiem tra neu ton tai gia tri 'user' trong session (User da dang nhap)
         return render_template('team.html', user=session['user_lname'], teams=teams(),
                                items=user_result_to_dict(products), banner=banner)
-    else:
-        # Neu khong ton tai gia tri 'user' trong session (User chua dang nhap)
-        return render_template('team.html', teams=teams(), items=user_result_to_dict(products), banner=banner)
+    # Neu khong ton tai gia tri 'user' trong session (User chua dang nhap)
+    return render_template('team.html', teams=teams(), items=user_result_to_dict(products), banner=banner)
 
 
 # Dinh tuyen ham nation cho url '/nations'
@@ -182,9 +178,8 @@ def nations():
     if 'user' in session:
         # Kiem tra neu ton tai gia tri 'user' trong session (User da dang nhap)
         return render_template('nation.html', user=session['user_lname'], items=user_result_to_dict(products))
-    else:
-        # Neu khong ton tai gia tri 'user' trong session (User chua dang nhap)
-        return render_template('nation.html', items=user_result_to_dict(products))
+    # Neu khong ton tai gia tri 'user' trong session (User chua dang nhap)
+    return render_template('nation.html', items=user_result_to_dict(products))
 
 
 # Dinh tuyen ham search cho url '/search'
@@ -200,9 +195,8 @@ def search():
         # Kiem tra neu ton tai gia tri 'user' trong session (User da dang nhap)
         return render_template('search.html', search=search_text, user=session['user_lname'],
                                items=user_result_to_dict(products))
-    else:
-        # Neu khong ton tai gia tri 'user' trong session (User chua dang nhap)
-        return render_template('search.html', search=search_text, items=user_result_to_dict(products), )
+    # Neu khong ton tai gia tri 'user' trong session (User chua dang nhap)
+    return render_template('search.html', search=search_text, items=user_result_to_dict(products), )
 
 
 # Dinh tuyen ham product cho url '/product/id' VD: '/product/1/
@@ -230,9 +224,8 @@ def product(product_id):
     if 'user' in session:
         # Kiem tra neu ton tai gia tri 'user' trong session (User da dang nhap)
         return render_template('product.html', user=session['user_lname'], item=result)
-    else:
-        # Neu khong ton tai gia tri 'user' trong session (User chua dang nhap)
-        return render_template('product.html', item=result)
+    # Neu khong ton tai gia tri 'user' trong session (User chua dang nhap)
+    return render_template('product.html', item=result)
 
 
 # Dinh tuyen ham login cho url '/login'
@@ -262,11 +255,10 @@ def login():
             response = make_response(jsonify({'Status': 1}))
             # Tra ve bien response
             return response
-        else:
-            # Neu khong ton tai user, tao bien response co gia tri Status = 1
-            response = make_response(jsonify({'Status': 0}))
-            # Tra ve bien response duoi dang json
-            return response
+        # Neu khong ton tai user, tao bien response co gia tri Status = 1
+        response = make_response(jsonify({'Status': 0}))
+        # Tra ve bien response duoi dang json
+        return response
     # Neu method la GET, render file login-form.html
     return render_template('login-form.html')
 
@@ -308,10 +300,9 @@ def register():
             # Them ban ghi moi vao table users va redirect ve login
             conn.commit()
             return redirect(url_for('login'))
-        else:
-            # Neu check != False (username hoac email da duoc su dung)
-            # Render file register.html, truyen vao thong bao loi
-            return render_template('register.html', error='Username or email already registered')
+        # Neu check != False (username hoac email da duoc su dung)
+        # Render file register.html, truyen vao thong bao loi
+        return render_template('register.html', error='Username or email already registered')
     else:
         # Neu method la GET, render file register.html
         return render_template('register.html')
@@ -340,19 +331,18 @@ def user():
             response = make_response(jsonify({'Status': 1}))
             # Tra ve bien response
             return response
-        else:
-            # Neu method la GET
-            user_id = session['user_id']
-            user_email = session['user_email']
-            user_fname = session['user_fname']
-            user_lname = session['user_lname']
-            c.execute('SELECT phone FROM users WHERE userId = ?', (user_id,))
-            # Tim kiem SĐT theo userId va luu vao bien phone
-            phone = c.fetchone()[0]
-            data = {'user_id': user_id, 'user_email': user_email, 'user_fname': user_fname, 'user_lname': user_lname,
-                    'phone': phone}
-            # Render file user.html
-            return render_template('user.html', user=session['user_lname'], data=data)
+        # Neu method la GET
+        user_id = session['user_id']
+        user_email = session['user_email']
+        user_fname = session['user_fname']
+        user_lname = session['user_lname']
+        c.execute('SELECT phone FROM users WHERE userId = ?', (user_id,))
+        # Tim kiem SĐT theo userId va luu vao bien phone
+        phone = c.fetchone()[0]
+        data = {'user_id': user_id, 'user_email': user_email, 'user_fname': user_fname, 'user_lname': user_lname,
+                'phone': phone}
+        # Render file user.html
+        return render_template('user.html', user=session['user_lname'], data=data)
     else:
         # Neu khong ton tai gia tri 'user' trong session (User chua dang nhap)
         return redirect(url_for('login'))
@@ -379,20 +369,19 @@ def user_change_password():
             response = make_response(jsonify({'code': 0}))
             # Tra ve bien response
             return response
-        elif new_password == password:
+        if new_password == password:
             # Neu password moi == password trong database
             # Tao bien response co gia tri Status = 1
             response = make_response(jsonify({'code': 1}))
             # Tra ve bien response
             return response
-        else:
-            c.execute('UPDATE users SET password = ? WHERE userId = ?', (new_password, user_id))
-            # Cap nhat password moi theo userId
-            conn.commit()
-            # Tao bien response co gia tri Status = 2
-            response = make_response(jsonify({'code': 2}))
-            # Tra ve bien response
-            return response
+        c.execute('UPDATE users SET password = ? WHERE userId = ?', (new_password, user_id))
+        # Cap nhat password moi theo userId
+        conn.commit()
+        # Tao bien response co gia tri Status = 2
+        response = make_response(jsonify({'code': 2}))
+        # Tra ve bien response
+        return response
     else:
         # Neu khong ton tai gia tri 'user' trong session (User chua dang nhap)
         return redirect(url_for('login'))
@@ -464,12 +453,11 @@ def add_to_cart():
         response = make_response(jsonify({'Status': 1}))
         # Tra ve bien response
         return response
-    else:
-        # Neu khong ton tai gia tri 'user' trong session (User chua dang nhap)
-        # Tao bien response co gia tri Status = 0
-        response = make_response(jsonify({'Status': 0}))
-        # Tra ve bien response
-        return response
+    # Neu khong ton tai gia tri 'user' trong session (User chua dang nhap)
+    # Tao bien response co gia tri Status = 0
+    response = make_response(jsonify({'Status': 0}))
+    # Tra ve bien response
+    return response
 
 
 # Dinh tuyen ham update_cart cho url '/cart/update'
@@ -495,9 +483,8 @@ def update_cart():
         response = make_response(jsonify({'Status': 1}))
         # Tra ve bien response
         return response
-    else:
-        # Neu khong ton tai gia tri 'user' trong session (User chua dang nhap)
-        return redirect(url_for('login'))
+    # Neu khong ton tai gia tri 'user' trong session (User chua dang nhap)
+    return redirect(url_for('login'))
 
 
 # Dinh tuyen ham delete cho url '/delete'
@@ -518,9 +505,8 @@ def delete_cart():
         response = make_response(jsonify({'Status': 1}))
         # Tra ve bien response
         return response
-    else:
-        # Neu khong ton tai gia tri 'user' trong session (User chua dang nhap)
-        return redirect(url_for('login'))
+    # Neu khong ton tai gia tri 'user' trong session (User chua dang nhap)
+    return redirect(url_for('login'))
 
 
 # Dinh tuyen ham cart cho url '/cart'
@@ -533,9 +519,8 @@ def view_cart():
         # Tao bien cart luu gia tri session['cart'] hoac tao moi 1 empty list
         cart = session.get('cart', [])
         return render_template('cart.html', user=session['user_lname'], items=cart)
-    else:
-        # Neu khong ton tai gia tri 'user' trong session (User chua dang nhap)
-        return render_template('login-form.html', cartError=True)
+    # Neu khong ton tai gia tri 'user' trong session (User chua dang nhap)
+    return render_template('login-form.html', cartError=True)
 
 
 @app.route('/checkout', methods=['GET', 'POST'])
@@ -584,22 +569,21 @@ def checkout():
             conn.commit()
             # Tra ve json
             return jsonify({'Msg': 'Success'})
-        else:
-            # Neu method la GET
-            # Cap nhat lai session['cart']
-            session['cart'] = get_cart(session['user_id'])
-            # Tao bien cart luu gia tri session['cart'] hoac tao moi 1 empty array
-            cart = session.get('cart', [])
-            user_id = session['user_id']
-            c.execute('SELECT phone, email FROM users WHERE userId = ?', (user_id,))
-            # Tim kiem phone, email theo userId
-            result = c.fetchone()
-            phone = result[0]
-            email = result[1]
-            user = {'user_fname': session['user_fname'], 'user_lname': session['user_lname'], 'phone': phone,
-                    'email': email}
-            # Render file checkout.html
-            return render_template('checkout.html', user=user, items=cart)
+        # Neu method la GET
+        # Cap nhat lai session['cart']
+        session['cart'] = get_cart(session['user_id'])
+        # Tao bien cart luu gia tri session['cart'] hoac tao moi 1 empty array
+        cart = session.get('cart', [])
+        user_id = session['user_id']
+        c.execute('SELECT phone, email FROM users WHERE userId = ?', (user_id,))
+        # Tim kiem phone, email theo userId
+        result = c.fetchone()
+        phone = result[0]
+        email = result[1]
+        user = {'user_fname': session['user_fname'], 'user_lname': session['user_lname'], 'phone': phone,
+                'email': email}
+        # Render file checkout.html
+        return render_template('checkout.html', user=user, items=cart)
     else:
         # Neu khong ton tai gia tri 'user' trong session (User chua dang nhap)
         return redirect(url_for('index'))
@@ -611,9 +595,8 @@ def check_admin():
         # Kiem tra neu 'admin' co trong session (Tai khoan admin da duoc dang nhap)
         # Neu co, tra ve gia tri True
         return True
-    else:
-        # Neu khong, tra ve gia tri False
-        return False
+    # Neu khong, tra ve gia tri False
+    return False
 
 
 # Ham admin_result_to_dict co chuc nang tuong tu ham user_result_to_dict
@@ -647,9 +630,8 @@ def admin_view():
         result = admin_result_to_dict(products)
         # Render file adminView.html
         return render_template('adminView.html', admin=session['admin_lname'], items=result)
-    else:
-        # Neu admin chua dang nhap
-        return redirect(url_for('admin_login'))
+    # Neu admin chua dang nhap
+    return redirect(url_for('admin_login'))
 
 
 # Dinh tuyen ham admin_login cho url '/admin/login'
@@ -675,11 +657,10 @@ def admin_login():
             response = make_response(jsonify({'Status': 1}))
             # Tra ve bien response
             return response
-        else:
-            # Tao bien response co gia tri Status = 0
-            response = make_response(jsonify({'Status': 0}))
-            # Tra ve bien response
-            return response
+        # Tao bien response co gia tri Status = 0
+        response = make_response(jsonify({'Status': 0}))
+        # Tra ve bien response
+        return response
     else:
         # Neu method la GET, render file adminLogin.html
         return render_template('adminLogin.html')
@@ -711,9 +692,8 @@ def admin_search():
         result = admin_result_to_dict(products)
         # Render file adminSearch.html
         return render_template('adminSearch.html', admin=session['admin_lname'], items=result)
-    else:
-        # Neu admin chua dang nhap
-        return redirect(url_for('admin_login'))
+    # Neu admin chua dang nhap
+    return redirect(url_for('admin_login'))
 
 
 # Ham check_none dung de kiem tra 1 string co gia tri 'None' hoac la 1 empty string
@@ -722,9 +702,8 @@ def check_none(text):
         # Neu string co gia tri 'None' hoac la empty string
         # Tra ve None
         return None
-    else:
-        # Neu sai, tra ve gia tri cua string
-        return text
+    # Neu sai, tra ve gia tri cua string
+    return text
 
 
 # Dinh tuyen ham admin_update cho url '/admin/update/<product_id>', VD: '/admin/update/1'
@@ -765,26 +744,25 @@ def admin_update(product_id):
             conn.close()
             # Redirect ve admin_view
             return redirect(url_for('admin_view'))
-        else:
-            # Neu method la GET
-            conn = sqlite3.connect(sqldbname)
-            c = conn.cursor()
-            c.execute(
-                "SELECT team, nation, name, price, quantity, sizeTitle, infoTitle FROM products WHERE productId = ?",
-                (product_id,)
-            )
-            # Tim kiem team, nation, name,... theo productId va luu vao bien item
-            item = c.fetchone()
-            result = {
-                "id": product_id, "team": item[0], "nation": item[1], "name": item[2], "price": item[3],
-                "quantity": item[4], "sizeTitle": item[5], "infoTitle": item[6]
-            }
-            c.execute("SELECT img1, img2, img3, img4 FROM images WHERE productId = ?", (product_id,))
-            # Tim kiem img1-4 theo productId va luu vao bien imgs
-            imgs = c.fetchone()
-            img = {"img1": imgs[0], "img2": imgs[1], "img3": imgs[2], "img4": imgs[3]}
-            # Render file adminUpdate.html
-            return render_template('adminUpdate.html', item=result, img=img)
+        # Neu method la GET
+        conn = sqlite3.connect(sqldbname)
+        c = conn.cursor()
+        c.execute(
+            "SELECT team, nation, name, price, quantity, sizeTitle, infoTitle FROM products WHERE productId = ?",
+            (product_id,)
+        )
+        # Tim kiem team, nation, name,... theo productId va luu vao bien item
+        item = c.fetchone()
+        result = {
+            "id": product_id, "team": item[0], "nation": item[1], "name": item[2], "price": item[3],
+            "quantity": item[4], "sizeTitle": item[5], "infoTitle": item[6]
+        }
+        c.execute("SELECT img1, img2, img3, img4 FROM images WHERE productId = ?", (product_id,))
+        # Tim kiem img1-4 theo productId va luu vao bien imgs
+        imgs = c.fetchone()
+        img = {"img1": imgs[0], "img2": imgs[1], "img3": imgs[2], "img4": imgs[3]}
+        # Render file adminUpdate.html
+        return render_template('adminUpdate.html', item=result, img=img)
     else:
         # Neu admin chua dang nhap
         return redirect(url_for('admin_login'))
@@ -807,9 +785,8 @@ def admin_price(product_id):
         response = make_response(jsonify({'Status': 1}))
         # Tra ve bien response
         return response
-    else:
-        # Neu admin chua dang nhap
-        return redirect(url_for('admin_login'))
+    # Neu admin chua dang nhap
+    return redirect(url_for('admin_login'))
 
 
 # Dinh tuyen ham admin_quantity cho url '/admin/update/quantity/<product_id>' VD: '/admin/update/quantity/1'
@@ -829,9 +806,8 @@ def admin_quantity(product_id):
         response = make_response(jsonify({'Status': 1}))
         # Tra ve bien response
         return response
-    else:
-        # Neu admin chua dang nhap
-        return redirect(url_for('admin_login'))
+    # Neu admin chua dang nhap
+    return redirect(url_for('admin_login'))
 
 
 # Dinh tuyen ham admin_quantity cho url '/admin/update/delete/<product_id>' VD: '/admin/update/delete/1'
@@ -852,9 +828,8 @@ def admin_delete(product_id):
         response = make_response(jsonify({'Status': 1}))
         # Tra ve bien response
         return response
-    else:
-        # Neu admin chua dang nhap
-        return redirect(url_for('admin_login'))
+    # Neu admin chua dang nhap
+    return redirect(url_for('admin_login'))
 
 
 # Dinh tuyen ham admin_add cho url '/admin/add'
@@ -892,10 +867,9 @@ def admin_add():
             conn.close()
             # Redirect ve admin_view
             return redirect(url_for('admin_view'))
-        else:
-            # Neu method la GET
-            # Render file adminAdd.html
-            return render_template('adminAdd.html')
+        # Neu method la GET
+        # Render file adminAdd.html
+        return render_template('adminAdd.html')
     else:
         # Neu admin chua dang nhap
         return redirect(url_for('admin_login'))
@@ -958,9 +932,8 @@ def admin_tracking():
             items.append(data)
         # Render file tracking.html
         return render_template('tracking.html', admin=session['admin_lname'], items=items)
-    else:
-        # Neu admin chua dang nhap
-        return redirect(url_for('admin_login'))
+    # Neu admin chua dang nhap
+    return redirect(url_for('admin_login'))
 
 
 # Dinh tuyen ham admin_tracking cho url '/admin/tracking/<order_id>' VD: '/admin/tracking/1'
@@ -979,55 +952,54 @@ def admin_tracking_order(order_id):
             conn.commit()
             # Redirect ve admin_tracking
             return redirect(url_for('admin_tracking'))
+        # Neu method la GET
+        c.execute('SELECT * FROM "order" WHERE orderId = ?', (order_id,))
+        # Tim kiem theo orderId va luu vao bien order
+        order = c.fetchone()
+
+        list_name = []
+        list_price = []
+
+        # Xu ly chuoi de lay ra productId va quantity
+        if ',' in order[2]:
+            # Neu order[2] (Chuoi chua cac id) co chua ',' (Ton tai nhieu hon 1 id)
+            list_id = order[2].split(',')
+            list_quantity = order[3].split(',')
         else:
-            # Neu method la GET
-            c.execute('SELECT * FROM "order" WHERE orderId = ?', (order_id,))
-            # Tim kiem theo orderId va luu vao bien order
-            order = c.fetchone()
+            # Neu order[2] khong chua ',' (Chi ton tai duy nhat 1 id)
+            list_id = [order[2]]
+            list_quantity = [order[3]]
 
-            list_name = []
-            list_price = []
+        for product_id in list_id:
+            # Duyet lan luot tung phan tu trong list_id
+            c.execute("SELECT name, price FROM products WHERE productId = ?", (product_id,))
+            # Tim kiem name, price theo productId va luu vao bien product
+            product = c.fetchone()
+            list_name.append(product[0])
+            list_price.append(product[1])
 
-            # Xu ly chuoi de lay ra productId va quantity
-            if ',' in order[2]:
-                # Neu order[2] (Chuoi chua cac id) co chua ',' (Ton tai nhieu hon 1 id)
-                list_id = order[2].split(',')
-                list_quantity = order[3].split(',')
-            else:
-                # Neu order[2] khong chua ',' (Chi ton tai duy nhat 1 id)
-                list_id = [order[2]]
-                list_quantity = [order[3]]
+        payment = ''
+        if order[6] == 1:
+            payment = 'CK'
+        elif order[6] == 2:
+            payment = 'COD'
 
-            for product_id in list_id:
-                # Duyet lan luot tung phan tu trong list_id
-                c.execute("SELECT name, price FROM products WHERE productId = ?", (product_id,))
-                # Tim kiem name, price theo productId va luu vao bien product
-                product = c.fetchone()
-                list_name.append(product[0])
-                list_price.append(product[1])
-
-            payment = ''
-            if order[6] == 1:
-                payment = 'CK'
-            elif order[6] == 2:
-                payment = 'COD'
-
-            item = {
-                'orderId': order[0],
-                'productName': list_name,
-                'price': list_price,
-                'quantity': list_quantity,
-                'address': order[4],
-                'phone': order[5],
-                'payment': payment,
-                'fname': order[7],
-                'lname': order[8],
-                'note': order[9],
-                'email': order[10],
-                'total': order[11]
-            }
-            # Render file order.html
-            return render_template('order.html', item=item)
+        item = {
+            'orderId': order[0],
+            'productName': list_name,
+            'price': list_price,
+            'quantity': list_quantity,
+            'address': order[4],
+            'phone': order[5],
+            'payment': payment,
+            'fname': order[7],
+            'lname': order[8],
+            'note': order[9],
+            'email': order[10],
+            'total': order[11]
+        }
+        # Render file order.html
+        return render_template('order.html', item=item)
     else:
         # Neu admin chua dang nhap
         return redirect(url_for('admin_login'))
@@ -1045,8 +1017,7 @@ def admin_manage():
             admin = {'username': result[0], 'email': result[1], 'lastName': result[2]}
             admins.append(admin)
         return render_template('adminManage.html', admins=admins)
-    else:
-        return redirect(url_for('admin_login'))
+    return redirect(url_for('admin_login'))
 
 
 # @app.route('/admin/manage/<admin_id>', methods=['GET', 'POST'])

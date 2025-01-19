@@ -718,7 +718,7 @@ def admin_search():
 
 # Ham check_none dung de kiem tra 1 string co gia tri 'None' hoac la 1 empty string
 def check_none(text):
-    if text == 'None' or text == '':
+    if text in ('None', ''):
         # Neu string co gia tri 'None' hoac la empty string
         # Tra ve None
         return None
